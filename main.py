@@ -100,3 +100,24 @@ class Solution:
 
 # ===============
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeElements(self, head: ListNode, val: int) -> ListNode:
+        
+        curr = head
+        
+        if curr is None:
+            return curr
+        elif curr.val != val:
+            curr.next = self.removeElements(curr.next, val)
+            return curr
+        else:
+            curr.next = self.removeElements(curr.next, val)
+            return curr.next
+
+# ===============
+
