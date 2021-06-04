@@ -49,3 +49,54 @@ class Solution:
 
 # ===============
 
+from collections import deque
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class HashSet:
+    
+    def __init__(self):
+        self.arr = [None] *1000000
+        
+    def hashIndex(self, key):
+        return hash(key) % len(self.arr)
+    
+    def add(self, key):
+        hashIndex = self.hashIndex(key)
+        if self.arr[hashIndex] == None:
+            newList = deque()
+            newList.append(key)
+            self.arr[hashIndex] = newList
+        elif key not in self.arr[hashIndex]:
+            self.arr[hashIndex].append(key)
+            
+    def contains(self, key):
+        hashIndex = self.hashIndex(key)
+        if self.arr[hashIndex] != None:
+            return True
+        else:
+            return False
+
+
+class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        
+        newHashSet = HashSet()
+        
+        curr = head
+        
+        while curr is not None:
+            if newHashSet.contains(curr):
+                return True
+            else:
+                newHashSet.add(curr)
+                curr = curr.next
+            
+        return False
+
+# ===============
+
